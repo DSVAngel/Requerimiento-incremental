@@ -1,0 +1,69 @@
+<div class="container">
+
+  <!-- Icon -->
+  <div class="auth-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="4" width="20" height="16" rx="2"/>
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+    </svg>
+  </div>
+
+  <h2>Recuperar contraseña</h2>
+  <p class="subtitle">
+    Ingresa tu correo institucional y te enviaremos<br>un enlace para restablecer tu acceso.
+  </p>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+
+    <div class="input-group">
+      <label for="email">Correo electrónico</label>
+      <div class="input-wrapper">
+        <input
+          id="email"
+          type="email"
+          placeholder="usuario@institucion.edu"
+          formControlName="email"
+          autocomplete="email"
+        />
+        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="loading">
+      <span *ngIf="!loading">Enviar enlace de recuperación</span>
+      <span *ngIf="loading">Enviando&hellip;</span>
+    </button>
+
+  </form>
+
+  <div class="message success" *ngIf="message && !isError">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+      <polyline points="22 4 12 14.01 9 11.01"/>
+    </svg>
+    {{ message }}
+  </div>
+
+  <div class="message error" *ngIf="message && isError">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    {{ message }}
+  </div>
+
+  <div class="auth-footer">
+    ¿Ya recordaste tu contraseña?
+    <a routerLink="/login">Inicia sesión</a>
+  </div>
+
+</div>

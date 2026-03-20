@@ -1,0 +1,130 @@
+<div class="container">
+  <div class="auth-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+      <polyline points="10 17 15 12 10 7"/>
+      <line x1="15" y1="12" x2="3" y2="12"/>
+    </svg>
+  </div>
+
+  <h2>Iniciar sesión</h2>
+  <p class="subtitle">Accede con tu correo institucional y contraseña actual.</p>
+
+  <div class="message success" *ngIf="resetInfo">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+      <polyline points="22 4 12 14.01 9 11.01"/>
+    </svg>
+    {{ resetInfo }}
+  </div>
+
+  <div class="message success" *ngIf="registerInfo">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+      <polyline points="22 4 12 14.01 9 11.01"/>
+    </svg>
+    {{ registerInfo }}
+  </div>
+
+  <div class="message success" *ngIf="emailChangedInfo">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+      <polyline points="22 4 12 14.01 9 11.01"/>
+    </svg>
+    {{ emailChangedInfo }}
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="input-group">
+      <label for="email">Correo electrónico</label>
+      <div class="input-wrapper">
+        <input
+          id="email"
+          type="email"
+          placeholder="usuario@estudiantes.uv.mx"
+          formControlName="email"
+          autocomplete="email"
+        />
+        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for="password">Contraseña</label>
+      <div class="input-wrapper">
+        <input
+          id="password"
+          [type]="showPassword ? 'text' : 'password'"
+          placeholder="Tu contraseña"
+          formControlName="password"
+          autocomplete="current-password"
+        />
+        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <button type="button" class="toggle-password" (click)="showPassword = !showPassword"
+          [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+          <svg *ngIf="!showPassword" xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          <svg *ngIf="showPassword" xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="loading || form.invalid">
+      <span *ngIf="!loading">Iniciar sesión</span>
+      <span *ngIf="loading">Ingresando&hellip;</span>
+    </button>
+  </form>
+
+  <div class="message success" *ngIf="message && !isError">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+      <polyline points="22 4 12 14.01 9 11.01"/>
+    </svg>
+    {{ message }}
+  </div>
+
+  <div class="message error" *ngIf="message && isError">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    {{ message }}
+  </div>
+
+  <div class="auth-footer">
+    ¿No tienes cuenta?
+    <a routerLink="/register">Regístrate</a>
+  </div>
+
+  <div class="auth-footer">
+    ¿Olvidaste tu contraseña?
+    <a routerLink="/request-reset">Recuperarla</a>
+  </div>
+</div>

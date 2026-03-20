@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="auth-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17 3a2.85 2.85 0 0 1 2 4.86L7 20l-4 1 1-4L16 5a2.85 2.85 0 0 1 1-2z"/>
+    </svg>
+  </div>
+
+  <h2>Cambiar correo</h2>
+  <p class="subtitle">Después de iniciar sesión, confirma el cambio con OTP en tu nuevo correo.</p>
+
+  <form [formGroup]="form">
+    <div class="input-group">
+      <label for="currentEmail">Correo actual</label>
+      <div class="input-wrapper">
+        <input
+          id="currentEmail"
+          type="email"
+          placeholder="actual@estudiantes.uv.mx"
+          formControlName="currentEmail"
+          autocomplete="email"
+        />
+        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for="newEmail">Nuevo correo</label>
+      <div class="input-wrapper">
+        <input
+          id="newEmail"
+          type="email"
+          placeholder="nuevo@estudiantes.uv.mx"
+          formControlName="newEmail"
+          autocomplete="email"
+        />
+        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+      </div>
+    </div>
+
+    <button type="button" (click)="requestOtp()" [disabled]="loadingRequestOtp || loadingConfirm">
+      <span *ngIf="!loadingRequestOtp">Enviar OTP al nuevo correo</span>
+      <span *ngIf="loadingRequestOtp">Enviando OTP&hellip;</span>
+    </button>
+
+    <div class="input-group" *ngIf="otpRequested">
+      <label for="otp">OTP</label>
+      <div class="input-wrapper">
+        <input
+          id="otp"
+          type="text"
+          maxlength="6"
+          placeholder="123456"
+          formControlName="otp"
+          autocomplete="one-time-code"
+        />
+        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 1v22"/>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+      </div>
+
+      <button type="button" (click)="confirmChange()" [disabled]="loadingConfirm || loadingRequestOtp">
+        <span *ngIf="!loadingConfirm">Confirmar cambio de correo</span>
+        <span *ngIf="loadingConfirm">Confirmando&hellip;</span>
+      </button>
+    </div>
+  </form>
+
+  <div class="message success" *ngIf="message && !isError">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+      <polyline points="22 4 12 14.01 9 11.01"/>
+    </svg>
+    {{ message }}
+  </div>
+
+  <div class="message error" *ngIf="message && isError">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    {{ message }}
+  </div>
+
+  <div class="auth-footer">
+    ¿Prefieres hacerlo después?
+    <a routerLink="/request-reset">Ir al inicio</a>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #1e293b;
+}
